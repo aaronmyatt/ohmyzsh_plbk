@@ -1,5 +1,8 @@
 # oh-my-zsh
 
+## All credits to the original author https://github.com/mashimom/ohmyzsh_plbk
+> Unfortunately he was a little too slow to merge an update that was breaking the playbook.
+
 Ansible role to install and configure oh-my-zsh on both APT and YUM based distros.
 > Tested on Ubuntu 14.04 64bit and Fedora 21 64bit.
 
@@ -18,7 +21,7 @@ Including an example of how to use this role:
 
     - hosts: all
       roles:
-         - { role: mashimom.oh-my-zsh, ohmyzsh_theme: "lambda" }
+         - { role: aaronmyatt.ohmyzsh_plbk, ohmyzsh_theme: "lambda" }
 
 ## License
 
