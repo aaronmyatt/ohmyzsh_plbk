@@ -1,37 +1,36 @@
----
-# tasks file for oh-my-zsh
-
-    - apt: name={{ item }} state=latest
-      when: ansible_pkg_mgr == 'apt'
-      sudo: true
-      with_items:
-         - zsh
-	 - git
-      notify: clean apt cache
-
-  - apt: name={{ item }} state=latest
-    when: ansible_pkg_mgr == 'apt'
-    sudo: true
-    with_items:
-      - zsh
-      - git
-    notify: clean apt cache
-
-  - yum: name={{ item }} state=latest
-    when: ansible_pkg_mgr == 'yum'
-    sudo: true
-    with_items:
-      - zsh
-      - git
-    notify: clean yum cache
-
-  - git: repo=git://github.com/robbyrussell/oh-my-zsh.git dest=~/.oh-my-zsh accept_hostkey=true update=no
-    sudo: true
-    sudo_user: "{{ ohmyzsh.user }}"
-
-  - template: src=.zshrc.j2 dest=~/.zshrc backup=yes
-    sudo: true
-    sudo_user: "{{ ohmyzsh.user }}"
-
-  - user: name={{ ohmyzsh.user }} shell=/bin/zsh
-    sudo: true
+--- 
+- 
+  apt: "name={{ item }} state=latest"
+  notify: "clean apt cache"
+  sudo: true
+  when: "ansible_pkg_mgr == 'apt'"
+  with_items: 
+    - zsh
+    - git
+- 
+  apt: "name={{ item }} state=latest"
+  notify: "clean apt cache"
+  sudo: true
+  when: "ansible_pkg_mgr == 'apt'"
+  with_items: 
+    - zsh
+    - git
+- 
+  notify: "clean yum cache"
+  sudo: true
+  when: "ansible_pkg_mgr == 'yum'"
+  with_items: 
+    - zsh
+    - git
+  yum: "name={{ item }} state=latest"
+- 
+  git: "repo=git://github.com/robbyrussell/oh-my-zsh.git dest=~/.oh-my-zsh accept_hostkey=true update=no"
+  sudo: true
+  sudo_user: "{{ ohmyzsh.user }}"
+- 
+  sudo: true
+  sudo_user: "{{ ohmyzsh.user }}"
+  template: "src=.zshrc.j2 dest=~/.zshrc backup=yes"
+- 
+  sudo: true
+  user: "name={{ ohmyzsh.user }} shell=/bin/zsh"
